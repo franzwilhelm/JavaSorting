@@ -73,6 +73,43 @@ class Sort {
     quick(a, index, right);
   }
 
+  /*
+  * MERGE SORT
+  * Can be called with from/to-pointers or without
+  * to sort the whole array;
+  */
+  void mergeSort() {
+    prepare();
+    mergeSort(0, a.length);
+  }
+
+  void mergeSort(int l, int r) {
+    if (r - l < 2) return;
+    int m = (l + r) / 2;
+
+    mergeSort(l, m);
+    mergeSort(m, r);
+
+    print(l / 2, l, m, r);
+
+    int[] left = new int[m - l];
+    int[] right  = new int[r - m];
+    for (int i = l; i < m; i++) left[i - l] = a[i];
+    for (int i = m; i < r; i++) right[i - m] = a[i];
+
+    int i = 0, j = 0;
+    while(i < left.length && j < right.length) {
+      if (left[i] <= right[j]) {
+        a[l + i + j] = left[i];
+        i++;
+      } else {
+        a[l + i + j] = right[j];
+        j++;
+      }
+    }
+    for (; i < left.length; i++) a[l + i + j] = left[i];
+    for (; j < left.length; j++) a[l + i + j] = right[j];
+  }
 
   /*
   * Helper methods
