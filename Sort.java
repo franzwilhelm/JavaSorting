@@ -114,24 +114,24 @@ class Sort {
   /*
   * Helper methods
   */
-  private final static String BLACK = "\u001B[30m", WHITE = "\u001B[37m", BLUE = "\u001B[34m", RED = "\u001B[31m", RESET = "\u001B[0m";
   private void print(int leftleft, int left, int mid, int right) {
-    print(BLACK, leftleft, left);
-    print(BLUE, left, mid);
-    print(RED, mid, right);
-    System.out.println(RESET);
+    print(Color.BLACK, leftleft, left);
+    print(Color.BLUE, left, mid);
+    print(Color.RED, mid, right);
+    System.out.println(Color.RESET);
   }
 
   private void print(int left, int mid, int right) {
     print("\u001B[32m", 0, left);
-    print(BLUE, left, mid);
-    print(RED, mid, right);
-    System.out.println(RESET);
+    print(Color.BLUE, left, mid);
+    print(Color.RED, mid, right);
+    System.out.println(Color.RESET);
   }
 
   private void print(int left, int right) {
-    print(WHITE, 0, left);
-    print(BLUE, left, right);
+    print(Color.WHITE, 0, left);
+    print(Color.BLUE, left, right);
+    System.out.println(Color.RESET);
   }
 
   private void print(String color, int left, int right) {
@@ -140,7 +140,7 @@ class Sort {
       s += a[i];
       if (i != a.length-1) s += ", ";
     }
-    System.out.print(s + RESET);
+    System.out.print(s + Color.RESET);
   }
 
   private void swap(int i1, int i2) {
