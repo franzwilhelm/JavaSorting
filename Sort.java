@@ -37,8 +37,10 @@ class Sort {
   public int[] insertion(int from, int to, boolean reverse) {
     prepare();
     for (int i = from; i < to; i++) {
+      print(from, i);
       for (int j = to - 1; j > i; j--) {
         if ((!reverse && a[j] < a[i]) || (reverse && a[j] > a[i])) {
+          print(from, i, j);
           swap(i, j);
         }
       }
@@ -54,45 +56,54 @@ class Sort {
     quick(a, 0, a.length);
   }
 
-  int depth = 0;
   private void quick(int a[], int left, int right) {
     if (right - left <= 1) return;
     int pivot = a[right-1];
     int index = left;
 
-    for (int i = left; i < right-1; i++) {
+    for (int i = left; i < right - 1; i++) {
       if (a[i] <= pivot) {
         swap(index, i);
         index++;
       }
     }
-    swap(index,right-1);
+    swap(index, right - 1);
     quick(a, left, index);
     print(left, right);
     quick(a, index, right);
   }
 
-  void offset() {
-    for (int i = 0; i < depth; i++) {
-      System.out.print(" ");
-    }
-  }
 
   /*
   * Helper methods
   */
+  private final static String BLACK = "\u001B[30m", WHITE = "\u001B[37m", BLUE = "\u001B[34m", RED = "\u001B[31m", RESET = "\u001B[0m";
+  private void print(int leftleft, int left, int mid, int right) {
+    print(BLACK, leftleft, left);
+    print(BLUE, left, mid);
+    print(RED, mid, right);
+    System.out.println(RESET);
+  }
+
+  private void print(int left, int mid, int right) {
+    print("\u001B[32m", 0, left);
+    print(BLUE, left, mid);
+    print(RED, mid, right);
+    System.out.println(RESET);
+  }
+
   private void print(int left, int right) {
-    print("\u001B[37m", 0, left);         // white
-    print("\u001B[34m", left, right);     // blue
-    print("\u001B[37m", right, a.length); // white
-    System.out.println("\u001B[0m");
+    print(WHITE, 0, left);
+    print(BLUE, left, right);
   }
 
   private void print(String color, int left, int right) {
+    String s = color;
     for (int i = left; i < right; i++) {
-      System.out.print(color + a[i]);
-      if (i != a.length-1) System.out.print(", ");
+      s += a[i];
+      if (i != a.length-1) s += ", ";
     }
+    System.out.print(s + RESET);
   }
 
   private void swap(int i1, int i2) {
